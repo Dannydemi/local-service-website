@@ -26,68 +26,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const stateData = {
     california: [
-      "Los Angeles",
-      "San Francisco",
-      "San Diego",
-      "Sacramento",
-      "Oakland",
-      "Long Beach",
-      "Anaheim",
-      "Santa Ana",
-      "Riverside",
-      "Stockton"
+      "Los Angeles","San Francisco","San Diego","Sacramento","Oakland",
+      "Long Beach","Anaheim","Santa Ana","Riverside","Stockton"
     ],
-
     texas: [
-      "Houston",
-      "Dallas",
-      "Austin",
-      "San Antonio",
-      "Fort Worth",
-      "Arlington",
-      "Corpus Christi",
-      "Plano",
-      "Garland",
-      "Irving"
+      "Houston","Dallas","Austin","San Antonio","Fort Worth",
+      "Arlington","Corpus Christi","Plano","Garland","Irving"
     ],
-
     florida: [
-      "Miami",
-      "Orlando",
-      "Tampa",
-      "Jacksonville",
-      "St. Petersburg",
-      "Hialeah",
-      "Fort Lauderdale",
-      "Tallahassee",
-      "Doral",
-      "Pembroke Pines"
+      "Miami","Orlando","Tampa","Jacksonville","St. Petersburg",
+      "Hialeah","Fort Lauderdale","Tallahassee","Doral","Pembroke Pines"
     ],
-
     newyork: [
-      "New York City",
-      "Buffalo",
-      "Rochester",
-      "Yonkers",
-      "Albany",
-      "Syracuse",
-      "Troy",
-      "Niagara Falls",
-      "Utica",
-      "Glens Falls"
+      "New York City","Buffalo","Rochester","Yonkers","Albany",
+      "Syracuse","Troy","Niagara Falls","Utica","Glens Falls"
     ],
-
     illinois: [
-      "Chicago",
-      "Aurora",
-      "Rockford",
-      "Joliet",
-      "Naperville",
-      "Springfield",
-      "Peoria",
-      "Evanston",
-      "Cicero",
-      "Schaumburg"
+      "Chicago","Aurora","Rockford","Joliet","Naperville",
+      "Springfield","Peoria","Evanston","Cicero","Schaumburg"
     ]
   };
 
@@ -116,10 +72,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Default load
   renderCities("california");
 
-  // State click handling
   stateItems.forEach(item => {
     item.addEventListener("click", () => {
       stateItems.forEach(s => s.classList.remove("active"));
@@ -128,27 +82,19 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-    /* ==========================
-     FAQ ACCORDION (FIXED)
+  /* ==========================
+     FAQ ACCORDION
   ========================== */
-
   const faqItems = document.querySelectorAll(".faq-item");
 
   faqItems.forEach(item => {
     const button = item.querySelector(".faq-question");
-
     if (!button) return;
 
     button.addEventListener("click", () => {
       const isOpen = item.classList.contains("active");
-
-      // Close all
       faqItems.forEach(i => i.classList.remove("active"));
-
-      // Open clicked one
-      if (!isOpen) {
-        item.classList.add("active");
-      }
+      if (!isOpen) item.classList.add("active");
     });
   });
 });
@@ -182,13 +128,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const statusEl = document.getElementById("quoteStatus");
   const btn = document.getElementById("quoteBtn");
 
-  // Paste your Google Apps Script Web App URL here
-  const SCRIPT_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbW16cSFRWNWEl2vHCsuzJplZo6g-V50gbnN52eSBP8MG2rNLBn7bKdCdzMIxCmJV2Xw/exec";
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // Honeypot spam check
     const hp = document.getElementById("websiteField");
     if (hp && hp.value) return;
 

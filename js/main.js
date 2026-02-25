@@ -130,14 +130,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbW16cSFRWNWEl2vHCsuzJplZo6g-V50gbnN52eSBP8MG2rNLBn7bKdCdzMIxCmJV2Xw/exec";
 
-  // Create a hidden iframe dynamically (prevents layout changes / redirects)
+  // Create hidden iframe once (prevents page navigation)
   let iframe = document.getElementById("quote_hidden_iframe");
   if (!iframe) {
     iframe = document.createElement("iframe");
-    iframe.name = "quote_hidden_iframe";
     iframe.id = "quote_hidden_iframe";
+    iframe.name = "quote_hidden_iframe";
     iframe.style.display = "none";
     document.body.appendChild(iframe);
+  }
+
+  // Create hidden form once (this is what will POST to Google)
+  let hiddenForm = document.getElementById("quote_hidden_form");
+  if (!hiddenForm) {
+    hiddenForm = document.createElement("form");
+    hiddenForm.id = "quote_hidden_form";
+    hiddenForm.method = "POST";
+    hiddenForm.action = SCRIPT_URL;
+    hiddenForm.target = "quote_hidden_iframe";
+    hiddenForm.style.display = "none";
+    document.body.appendChild(hiddenForm);
   }
 
   form.addEventListener("submit", function (e) {
@@ -150,34 +162,26 @@ document.addEventListener("DOMContentLoaded", function () {
     statusEl.textContent = "Submitting…";
     btn.disabled = true;
 
-    // Ensure hidden fields exist (so Apps Script receives them)
-    let sourceInput = form.querySelector('input[name="source"]');
-    if (!sourceInput) {
-      sourceInput = document.createElement("input");
-      sourceInput.type = "hidden";
-      sourceInput.name = "source";
-      form.appendChild(sourceInput);
+    // Clear old hidden inputs
+    hiddenForm.innerHTML = "";
+
+    // Copy fields from visible form into hidden form
+    const fd = new FormData(form);
+    fd.append("source", window.location.href);
+    fd.append("workflow_stage", "Lead received - needs qualification");
+
+    for (const [key, value] of fd.entries()) {
+      const input = document.createElement("input");
+      input.type = "hidden";
+      input.name = key;
+      input.value = value;
+      hiddenForm.appendChild(input);
     }
-    sourceInput.value = window.location.href;
 
-    let stageInput = form.querySelector('input[name="workflow_stage"]');
-    if (!stageInput) {
-      stageInput = document.createElement("input");
-      stageInput.type = "hidden";
-      stageInput.name = "workflow_stage";
-      form.appendChild(stageInput);
-    }
-    stageInput.value = "Lead received - needs qualification";
+    // Submit hidden form (no navigation)
+    hiddenForm.submit();
 
-    // Post using normal form submit (bypasses CORS completely)
-    form.setAttribute("action", SCRIPT_URL);
-    form.setAttribute("method", "POST");
-    form.setAttribute("target", "quote_hidden_iframe");
-
-    // Submit to iframe (no redirect away from your page)
-    form.submit();
-
-    // Redirect user to thank you page
+    // Send user to thank you page
     setTimeout(() => {
       window.location.href = "thank-you.html";
     }, 700);

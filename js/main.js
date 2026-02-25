@@ -127,25 +127,59 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const statusEl = document.getElementById("quoteStatus");
   const btn = document.getElementById("quoteBtn");
-  const sourceInput = document.getElementById("quoteSource");
+
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbW16cSFRWNWEl2vHCsuzJplZo6g-V50gbnN52eSBP8MG2rNLBn7bKdCdzMIxCmJV2Xw/exec";
+
+  // Create a hidden iframe dynamically (prevents layout changes / redirects)
+  let iframe = document.getElementById("quote_hidden_iframe");
+  if (!iframe) {
+    iframe = document.createElement("iframe");
+    iframe.name = "quote_hidden_iframe";
+    iframe.id = "quote_hidden_iframe";
+    iframe.style.display = "none";
+    document.body.appendChild(iframe);
+  }
 
   form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
     // Honeypot spam check
     const hp = document.getElementById("websiteField");
-    if (hp && hp.value) {
-      e.preventDefault();
-      return;
-    }
-
-    // Fill hidden source field
-    if (sourceInput) sourceInput.value = window.location.href;
+    if (hp && hp.value) return;
 
     statusEl.textContent = "Submitting…";
     btn.disabled = true;
 
-    // Let the normal form POST happen (to the hidden iframe), then redirect
+    // Ensure hidden fields exist (so Apps Script receives them)
+    let sourceInput = form.querySelector('input[name="source"]');
+    if (!sourceInput) {
+      sourceInput = document.createElement("input");
+      sourceInput.type = "hidden";
+      sourceInput.name = "source";
+      form.appendChild(sourceInput);
+    }
+    sourceInput.value = window.location.href;
+
+    let stageInput = form.querySelector('input[name="workflow_stage"]');
+    if (!stageInput) {
+      stageInput = document.createElement("input");
+      stageInput.type = "hidden";
+      stageInput.name = "workflow_stage";
+      form.appendChild(stageInput);
+    }
+    stageInput.value = "Lead received - needs qualification";
+
+    // Post using normal form submit (bypasses CORS completely)
+    form.setAttribute("action", SCRIPT_URL);
+    form.setAttribute("method", "POST");
+    form.setAttribute("target", "quote_hidden_iframe");
+
+    // Submit to iframe (no redirect away from your page)
+    form.submit();
+
+    // Redirect user to thank you page
     setTimeout(() => {
       window.location.href = "thank-you.html";
-    }, 600);
+    }, 700);
   });
 })();

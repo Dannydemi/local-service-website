@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbW16cSFRWNWEl2vHCsuzJplZo6g-V50gbnN52eSBP8MG2rNLBn7bKdCdzMIxCmJV2Xw/exec";
 
-  form.addEventListener("submit", async (e) => {
+  form.addEventListener("submit", function (e) {
     e.preventDefault();
 
     const hp = document.getElementById("websiteField");
@@ -139,29 +139,23 @@ document.addEventListener("DOMContentLoaded", function () {
     statusEl.textContent = "Submitting…";
     btn.disabled = true;
 
-    const fd = new FormData(form);
-    const payload = Object.fromEntries(fd.entries());
-    payload.source = window.location.href;
-    payload.workflow_stage = "Lead received - needs qualification";
+    const formData = new FormData(form);
+    const params = new URLSearchParams();
 
-    try {
-      const res = await fetch(SCRIPT_URL, {
-        method: "POST",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify(payload),
-      });
+    formData.forEach((value, key) => {
+      params.append(key, value);
+    });
 
-      const data = await res.json().catch(() => ({}));
+    params.append("source", window.location.href);
+    params.append("workflow_stage", "Lead received - needs qualification");
 
-      if (data.ok) {
-        window.location.href = "thank-you.html";
-      } else {
-        statusEl.textContent = data.error || "Submission failed. Please try again.";
-        btn.disabled = false;
-      }
-    } catch (err) {
-      statusEl.textContent = "Network error. Please try again.";
-      btn.disabled = false;
-    }
+    fetch(SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors", // 🔥 Prevents CORS network error
+      body: params
+    });
+
+    // Immediately redirect (since no-cors doesn't allow reading response)
+    window.location.href = "thank-you.html";
   });
 })();

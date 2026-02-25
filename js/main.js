@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // ================= QUOTE FORM (GitHub Pages) =================
-(function () {
+document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("quoteForm");
   if (!form) return;
 
@@ -130,7 +130,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbW16cSFRWNWEl2vHCsuzJplZo6g-V50gbnN52eSBP8MG2rNLBn7bKdCdzMIxCmJV2Xw/exec";
 
-  // Create hidden iframe once (prevents page navigation)
+  // Ensure the visible form NEVER navigates away
+  form.removeAttribute("action");
+  form.removeAttribute("method");
+  form.removeAttribute("target");
+
+  // Ensure hidden iframe exists (matches your HTML iframe name/id)
   let iframe = document.getElementById("quote_hidden_iframe");
   if (!iframe) {
     iframe = document.createElement("iframe");
@@ -140,7 +145,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.body.appendChild(iframe);
   }
 
-  // Create hidden form once (this is what will POST to Google)
+  // Create hidden form (only this one submits)
   let hiddenForm = document.getElementById("quote_hidden_form");
   if (!hiddenForm) {
     hiddenForm = document.createElement("form");
@@ -150,22 +155,25 @@ document.addEventListener("DOMContentLoaded", function () {
     hiddenForm.target = "quote_hidden_iframe";
     hiddenForm.style.display = "none";
     document.body.appendChild(hiddenForm);
+  } else {
+    hiddenForm.action = SCRIPT_URL;
+    hiddenForm.method = "POST";
+    hiddenForm.target = "quote_hidden_iframe";
   }
 
+  // Extra guard: block any other submit handlers from navigating
   form.addEventListener("submit", function (e) {
     e.preventDefault();
+    e.stopPropagation();
 
-    // Honeypot spam check
     const hp = document.getElementById("websiteField");
     if (hp && hp.value) return;
 
     statusEl.textContent = "Submitting…";
     btn.disabled = true;
 
-    // Clear old hidden inputs
     hiddenForm.innerHTML = "";
 
-    // Copy fields from visible form into hidden form
     const fd = new FormData(form);
     fd.append("source", window.location.href);
     fd.append("workflow_stage", "Lead received - needs qualification");
@@ -178,12 +186,10 @@ document.addEventListener("DOMContentLoaded", function () {
       hiddenForm.appendChild(input);
     }
 
-    // Submit hidden form (no navigation)
     hiddenForm.submit();
 
-    // Send user to thank you page
     setTimeout(() => {
       window.location.href = "thank-you.html";
-    }, 700);
-  });
-})();
+    }, 800);
+  }, true); // capture=true helps override other listeners
+});

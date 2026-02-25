@@ -127,35 +127,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const statusEl = document.getElementById("quoteStatus");
   const btn = document.getElementById("quoteBtn");
-
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbW16cSFRWNWEl2vHCsuzJplZo6g-V50gbnN52eSBP8MG2rNLBn7bKdCdzMIxCmJV2Xw/exec";
+  const sourceInput = document.getElementById("quoteSource");
 
   form.addEventListener("submit", function (e) {
-    e.preventDefault();
-
+    // Honeypot spam check
     const hp = document.getElementById("websiteField");
-    if (hp && hp.value) return;
+    if (hp && hp.value) {
+      e.preventDefault();
+      return;
+    }
+
+    // Fill hidden source field
+    if (sourceInput) sourceInput.value = window.location.href;
 
     statusEl.textContent = "Submitting…";
     btn.disabled = true;
 
-    const formData = new FormData(form);
-    const params = new URLSearchParams();
-
-    formData.forEach((value, key) => {
-      params.append(key, value);
-    });
-
-    params.append("source", window.location.href);
-    params.append("workflow_stage", "Lead received - needs qualification");
-
-    fetch(SCRIPT_URL, {
-      method: "POST",
-      mode: "no-cors", // 🔥 Prevents CORS network error
-      body: params
-    });
-
-    // Immediately redirect (since no-cors doesn't allow reading response)
-    window.location.href = "thank-you.html";
+    // Let the normal form POST happen (to the hidden iframe), then redirect
+    setTimeout(() => {
+      window.location.href = "thank-you.html";
+    }, 600);
   });
 })();

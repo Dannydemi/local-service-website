@@ -173,3 +173,51 @@ document.addEventListener("DOMContentLoaded", function () {
     banner.setAttribute("aria-hidden", "true");
   });
 });
+
+// ================= QUOTE FORM (GitHub Pages) =================
+(function () {
+  const form = document.getElementById("quoteForm");
+  if (!form) return;
+
+  const statusEl = document.getElementById("quoteStatus");
+  const btn = document.getElementById("quoteBtn");
+
+  // Paste your Google Apps Script Web App URL here
+  const SCRIPT_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    // Honeypot spam check
+    const hp = document.getElementById("websiteField");
+    if (hp && hp.value) return;
+
+    statusEl.textContent = "Submitting…";
+    btn.disabled = true;
+
+    const fd = new FormData(form);
+    const payload = Object.fromEntries(fd.entries());
+    payload.source = window.location.href;
+    payload.workflow_stage = "Lead received - needs qualification";
+
+    try {
+      const res = await fetch(SCRIPT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (data.ok) {
+        window.location.href = "thank-you.html";
+      } else {
+        statusEl.textContent = data.error || "Submission failed. Please try again.";
+        btn.disabled = false;
+      }
+    } catch (err) {
+      statusEl.textContent = "Network error. Please try again.";
+      btn.disabled = false;
+    }
+  });
+})();

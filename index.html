@@ -146,15 +146,7 @@
   </div>
 </section>
 
-<form class="quote-form" id="quoteForm"
-      action="https://script.google.com/macros/s/AKfycbW16cSFRWNWEl2vHCsuzJplZo6g-V50gbnN52eSBP8MG2rNLBn7bKdCdzMIxCmJV2Xw/exec"
-      method="POST"
-      target="hidden_iframe">
-
-  <!-- These get filled by JS -->
-  <input type="hidden" name="source" id="quoteSource">
-  <input type="hidden" name="workflow_stage" value="Lead received - needs qualification">
-
+<form class="quote-form" id="quoteForm">
   <div class="form-group">
     <label>Full Name *</label>
     <input type="text" name="name" placeholder="Your name" required />
@@ -199,7 +191,6 @@
     Your information is securely shared only with relevant service providers.
   </p>
 </form>
-
 <!-- Hidden iframe to receive the POST (prevents leaving your site) -->
 <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
   </div>

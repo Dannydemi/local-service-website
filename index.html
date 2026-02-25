@@ -146,15 +146,15 @@
   </div>
 </section>
 
-<!-- QUOTE SECTION -->
-<section class="quote-section" id="contact">
-  <div class="quote-container">
-    <h2>Request a Free Quote</h2>
-    <p class="quote-subtitle">
-      Submit your details and we’ll connect you with a local professional
-    </p>
+<form class="quote-form" id="quoteForm"
+      action="https://script.google.com/macros/s/AKfycbW16cSFRWNWEl2vHCsuzJplZo6g-V50gbnN52eSBP8MG2rNLBn7bKdCdzMIxCmJV2Xw/exec"
+      method="POST"
+      target="hidden_iframe">
 
-    <form class="quote-form" id="quoteForm">
+  <!-- These get filled by JS -->
+  <input type="hidden" name="source" id="quoteSource">
+  <input type="hidden" name="workflow_stage" value="Lead received - needs qualification">
+
   <div class="form-group">
     <label>Full Name *</label>
     <input type="text" name="name" placeholder="Your name" required />
@@ -199,6 +199,9 @@
     Your information is securely shared only with relevant service providers.
   </p>
 </form>
+
+<!-- Hidden iframe to receive the POST (prevents leaving your site) -->
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
   </div>
 </section>
 

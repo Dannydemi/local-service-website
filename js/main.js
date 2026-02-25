@@ -128,14 +128,15 @@ document.addEventListener("DOMContentLoaded", function () {
   const statusEl = document.getElementById("quoteStatus");
   const btn = document.getElementById("quoteBtn");
 
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbW16cSFRWNWEl2vHCsuzJplZo6g-V50gbnN52eSBP8MG2rNLBn7bKdCdzMIxCmJV2Xw/exec";
+  // ✅ Use your LIVE /exec URL (the one that shows "Quote Receiver is live ✅")
+  const SCRIPT_URL = "PASTE_YOUR_LIVE_EXEC_URL_HERE";
 
-  // Ensure the visible form NEVER navigates away
+  // Ensure the visible form never navigates away
   form.removeAttribute("action");
   form.removeAttribute("method");
   form.removeAttribute("target");
 
-  // Ensure hidden iframe exists (matches your HTML iframe name/id)
+  // Hidden iframe (must match name below)
   let iframe = document.getElementById("quote_hidden_iframe");
   if (!iframe) {
     iframe = document.createElement("iframe");
@@ -145,35 +146,34 @@ document.addEventListener("DOMContentLoaded", function () {
     document.body.appendChild(iframe);
   }
 
-  // Create hidden form (only this one submits)
+  // Hidden form that actually posts to Apps Script
   let hiddenForm = document.getElementById("quote_hidden_form");
   if (!hiddenForm) {
     hiddenForm = document.createElement("form");
     hiddenForm.id = "quote_hidden_form";
-    hiddenForm.method = "POST";
-    hiddenForm.action = SCRIPT_URL;
-    hiddenForm.target = "quote_hidden_iframe";
     hiddenForm.style.display = "none";
     document.body.appendChild(hiddenForm);
-  } else {
-    hiddenForm.action = SCRIPT_URL;
-    hiddenForm.method = "POST";
-    hiddenForm.target = "quote_hidden_iframe";
   }
 
-  // Extra guard: block any other submit handlers from navigating
+  hiddenForm.method = "POST";
+  hiddenForm.action = "https://script.google.com/macros/s/AKfycbwm1lXNILEBgJ38JqXPjuvCdbVR5ZwOA2ZVaA3HQiQ4pK8sG9lBLChw7B_gUyZODb9lJw/exec";
+  hiddenForm.target = "quote_hidden_iframe";
+
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     e.stopPropagation();
 
+    // Honeypot spam check
     const hp = document.getElementById("websiteField");
     if (hp && hp.value) return;
 
     statusEl.textContent = "Submitting…";
     btn.disabled = true;
 
+    // Clear previous hidden inputs
     hiddenForm.innerHTML = "";
 
+    // Copy the visible form data into hidden inputs
     const fd = new FormData(form);
     fd.append("source", window.location.href);
     fd.append("workflow_stage", "Lead received - needs qualification");
@@ -186,10 +186,12 @@ document.addEventListener("DOMContentLoaded", function () {
       hiddenForm.appendChild(input);
     }
 
+    // Submit in the background (no CORS, no redirect)
     hiddenForm.submit();
 
+    // Redirect the user
     setTimeout(() => {
       window.location.href = "thank-you.html";
     }, 800);
-  }, true); // capture=true helps override other listeners
+  }, true);
 });

@@ -154,41 +154,51 @@
       Submit your details and we’ll connect you with a local professional
     </p>
 
-    <form class="quote-form">
-      <div class="form-group">
-        <label>Full Name *</label>
-        <input type="text" placeholder="Your name" required />
-      </div>
+    <form class="quote-form" id="quoteForm">
+  <div class="form-group">
+    <label>Full Name *</label>
+    <input type="text" name="name" placeholder="Your name" required />
+  </div>
 
-      <div class="form-group">
-        <label>Phone Number *</label>
-        <input type="tel" placeholder="(555) 123-4567" required />
-      </div>
+  <div class="form-group">
+    <label>Phone Number *</label>
+    <input type="tel" name="phone" placeholder="(555) 123-4567" required />
+  </div>
 
-      <div class="form-group">
-        <label>Service Needed *</label>
-        <select required>
-          <option value="">Select a service</option>
-          <option>Plumbing</option>
-          <option>HVAC</option>
-          <option>Electrical</option>
-          <option>Roofing</option>
-          <option>Cleaning</option>
-          <option>General Repairs</option>
-        </select>
-      </div>
+  <div class="form-group">
+    <label>Email *</label>
+    <input type="email" name="email" placeholder="you@example.com" required />
+  </div>
 
-      <div class="form-group">
-        <label>Details</label>
-        <textarea placeholder="Describe your issue (optional)"></textarea>
-      </div>
+  <div class="form-group">
+    <label>Service Needed *</label>
+    <select name="service" required>
+      <option value="">Select a service</option>
+      <option>Plumbing</option>
+      <option>HVAC</option>
+      <option>Electrical</option>
+      <option>Roofing</option>
+      <option>Cleaning</option>
+      <option>General Repairs</option>
+    </select>
+  </div>
 
-      <button type="submit" class="quote-btn">Get Free Quote</button>
+  <div class="form-group">
+    <label>Details</label>
+    <textarea name="details" placeholder="Describe your issue (optional)"></textarea>
+  </div>
 
-      <p class="privacy-text">
-        Your information is securely shared only with relevant service providers.
-      </p>
-    </form>
+  <!-- Honeypot (spam trap) -->
+  <input type="text" name="website" id="websiteField" style="display:none" tabindex="-1" autocomplete="off">
+
+  <button type="submit" class="quote-btn" id="quoteBtn">Get Free Quote</button>
+
+  <p id="quoteStatus" class="privacy-text" style="margin-top:10px;"></p>
+
+  <p class="privacy-text">
+    Your information is securely shared only with relevant service providers.
+  </p>
+</form>
   </div>
 </section>
 

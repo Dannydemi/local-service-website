@@ -51,16 +51,20 @@
 <!-- HERO SECTION -->
 <section class="hero" id="hero">
   <div class="hero-container">
+
     <div class="hero-content">
       <span class="hero-badge">Local Service Connections</span>
+
       <h1 class="hero-title">
         Get More Local Customers<br>
         Without Paying for Ads
       </h1>
+
       <p class="hero-text">
         We connect homeowners and businesses with trusted local service professionals
         using proven lead generation systems designed to drive real growth.
       </p>
+
       <div class="hero-actions">
         <a href="#contact" class="hero-btn primary">Get Free Consultation</a>
         <a href="tel:+1-800-555-0123" class="hero-btn secondary">Call Now</a>
@@ -84,6 +88,61 @@
         </li>
       </ul>
     </div>
+
+  </div>
+</section>
+
+<!-- SERVICES SECTION -->
+<section class="services" id="services">
+  <div class="services-container">
+    <div class="services-header">
+      <h2>Services We Help You Find</h2>
+      <p>Reliable local professionals across multiple service categories</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-icon">💧</span>
+        <h3>Plumbing</h3>
+        <p>Repairs, installations, and maintenance services</p>
+        <a href="services.html">Learn more →</a>
+      </div>
+
+      <div class="service-card">
+        <span class="service-icon">❄️</span>
+        <h3>HVAC</h3>
+        <p>Heating, cooling, and ventilation solutions</p>
+        <a href="services.html">Learn more →</a>
+      </div>
+
+      <div class="service-card">
+        <span class="service-icon">⚡</span>
+        <h3>Electrical</h3>
+        <p>Wiring, upgrades, and repair services</p>
+        <a href="services.html">Learn more →</a>
+      </div>
+
+      <div class="service-card">
+        <span class="service-icon">🏠</span>
+        <h3>Roofing</h3>
+        <p>Inspections, repairs, and replacements</p>
+        <a href="services.html">Learn more →</a>
+      </div>
+
+      <div class="service-card">
+        <span class="service-icon">🧹</span>
+        <h3>Cleaning</h3>
+        <p>Residential and commercial cleaning services</p>
+        <a href="services.html">Learn more →</a>
+      </div>
+
+      <div class="service-card">
+        <span class="service-icon">🛠</span>
+        <h3>General Repairs</h3>
+        <p>Everyday home and business repair needs</p>
+        <a href="services.html">Learn more →</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -95,12 +154,7 @@
       Submit your details and we’ll connect you with a local professional
     </p>
 
-    <form 
-      class="quote-form" 
-      id="quoteForm"
-      method="POST"
-      action="https://script.google.com/macros/s/AKfycbzCI_G3HG-FIyyDR3W6u62-ji1CbjXb56O2FDR9MjYLsl4vUoN2M3y8zRPzUCcmwAtD/exec"
-    >
+    <form class="quote-form" id="quoteForm">
       <div class="form-group">
         <label>Full Name *</label>
         <input type="text" name="name" placeholder="Your name" required />
@@ -134,7 +188,7 @@
         <textarea name="details" placeholder="Describe your issue (optional)"></textarea>
       </div>
 
-      <!-- Honeypot -->
+      <!-- Honeypot (spam trap) -->
       <input type="text" name="website" id="websiteField" style="display:none" tabindex="-1" autocomplete="off">
 
       <button type="submit" class="quote-btn" id="quoteBtn">Get Free Quote</button>
@@ -146,14 +200,207 @@
       </p>
     </form>
 
+    <!-- Hidden iframe used by JS to submit without leaving the page -->
+    <iframe name="quote_hidden_iframe" id="quote_hidden_iframe" style="display:none;"></iframe>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section">
+  <div class="testimonials-container">
+    <div class="section-header">
+      <h2>What Customers Say</h2>
+      <p>Real feedback from people we’ve helped connect</p>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">
+          "Got connected quickly and the plumber was excellent.
+          Saved me a lot of stress."
+        </p>
+        <hr>
+        <div class="testimonial-author">
+          <strong>Sarah M.</strong>
+          <span>Plumbing</span>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">
+          "Simple process and fast response.
+          Would definitely use again."
+        </p>
+        <hr>
+        <div class="testimonial-author">
+          <strong>John D.</strong>
+          <span>HVAC</span>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">
+          "Emergency issue handled smoothly.
+          Very professional experience."
+        </p>
+        <hr>
+        <div class="testimonial-author">
+          <strong>Maria T.</strong>
+          <span>Electrical</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AREAS -->
+<section class="areas-section">
+  <div class="areas-container">
+    <div class="areas-content">
+      <h2>Serving Multiple Local Areas</h2>
+      <p class="areas-text">
+        We help connect customers with professionals across many cities and regions.
+        Availability depends on local partners.
+      </p>
+
+      <div class="areas-list">
+        <ul>
+          <li>📍 New York</li>
+          <li>📍 Chicago</li>
+          <li>📍 Phoenix</li>
+        </ul>
+        <ul>
+          <li>📍 Los Angeles</li>
+          <li>📍 Houston</li>
+          <li>📍 Miami</li>
+        </ul>
+      </div>
+
+      <a href="areas.html" class="areas-btn">View Coverage Areas</a>
+    </div>
+
+    <div class="stats-card">
+      <h3>Platform Highlights</h3>
+      <div class="stat-item">
+        <strong>150+</strong>
+        <span>Active Coverage Areas</span>
+      </div>
+      <div class="stat-item">
+        <strong>50K+</strong>
+        <span>Connections Facilitated</span>
+      </div>
+      <div class="stat-item">
+        <strong>4.8★</strong>
+        <span>Average User Rating</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-container">
+    <h2>Need Local Help Today?</h2>
+    <p>Get connected with a trusted service professional near you</p>
+    <div class="cta-actions">
+      <a href="tel:+1-800-555-0123" class="cta-btn call">Call Now</a>
+      <a href="#contact" class="cta-btn quote">Get Free Quote</a>
+    </div>
   </div>
 </section>
 
 <footer class="footer">
   <div class="footer-container">
-    <p>© <span id="current-year"></span> PrimeLocal Lead. All rights reserved.</p>
+
+    <!-- BRAND -->
+    <div class="footer-brand">
+      <h3>PrimeLocal Lead</h3>
+      <p>Connecting local customers with trusted service professionals.</p>
+
+      <div class="footer-socials">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Twitter">t</a>
+        <a href="#" aria-label="LinkedIn">in</a>
+      </div>
+    </div>
+
+    <!-- QUICK LINKS -->
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- SERVICES -->
+    <div class="footer-links">
+  <h4>Services</h4>
+  <a href="services.html#plumbing">Plumbing</a>
+  <a href="services.html#hvac">HVAC</a>
+  <a href="services.html#electrical">Electrical</a>
+  <a href="services.html#roofing">Roofing</a>
+</div>
+
+    <!-- CONTACT -->
+    <div class="footer-contact">
+      <h4>Contact</h4>
+
+      <div class="contact-item">
+        <span class="icon">📞</span>
+        <span class="contact-text">
+          <a href="tel:+18005550123">1-800-555-0123</a>
+        </span>
+      </div>
+
+      <div class="contact-item">
+        <span class="icon">✉️</span>
+        <span class="contact-text">
+          <a href="mailto:support@primelocallead.com">
+            support@primelocallead.com
+          </a>
+        </span>
+      </div>
+
+      <div class="contact-item">
+        <span class="icon">📍</span>
+        <span class="contact-text">
+          Serving multiple cities across the US
+        </span>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>
+        © <span id="current-year"></span> PrimeLocal Lead. All rights reserved.
+      </p>
+
+      <div class="footer-legal">
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms-of-service.html">Terms of Service</a>
+        <a href="disclaimer.html">Disclaimer</a>
+      </div>
+    </div>
+
   </div>
 </footer>
+
+<!-- Cookie Consent Banner -->
+<div id="cookie-banner" class="cookie-banner" aria-hidden="true">
+  <div class="cookie-content">
+    <p>
+      We use essential cookies to ensure this website functions properly.
+      No tracking or advertising cookies are used.
+      <a href="cookie-policy.html">Learn more</a>.
+    </p>
+    <button id="accept-cookies" class="cookie-btn">
+      Accept
+    </button>
+  </div>
+</div>
 
 <script src="js/main.js"></script>
 </body>

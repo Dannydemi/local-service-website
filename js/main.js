@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const btn = document.getElementById("quoteBtn");
 
   // ✅ Use your LIVE /exec URL (the one that shows "Quote Receiver is live ✅")
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwm1lXNILEBgJ38JqXPjuvCdbVR5ZwOA2ZVaA3HQiQ4pK8sG9lBLChw7B_gUyZODb9lJw/exec";
+  const SCRIPT_URL = "hiddenForm.action = "https://script.google.com/macros/s/AKfycbzCI_G3HG-FIyyDR3W6u62-ji1CbjXb56O2FDR9MjYLsl4vUoN2M3y8zRPzUCcmwAtD/exec";
 
   // Ensure the visible form never navigates away
   form.removeAttribute("action");

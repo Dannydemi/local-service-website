@@ -3398,3 +3398,33 @@ body {
 .about-hero p {
   max-width: 720px !important;
 }
+
+/* =========================================
+   FAQ HERO — HARD CENTER OVERRIDE
+========================================= */
+
+.faq-hero {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+}
+
+.faq-hero-container {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+.faq-hero-container h1,
+.faq-hero-container p {
+  text-align: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.faq-hero-container p {
+  max-width: 720px !important;
+}

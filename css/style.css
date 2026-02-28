@@ -3351,3 +3351,50 @@ body {
   max-width: 700px !important;
   margin: 0 auto !important;
 }
+
+/* =========================================
+   HERO CENTER OVERRIDE (ABOUT + SHARED HERO)
+   Paste at END of CSS
+========================================= */
+
+/* Shared hero (many pages) */
+.page-hero,
+.page-hero-container {
+  text-align: center !important;
+}
+
+.page-hero-container {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* About-specific hero (if used) */
+.about-hero,
+.about-hero-container {
+  text-align: center !important;
+}
+
+.about-hero-container {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Center text blocks + ensure paragraphs center nicely */
+.page-hero h1,
+.page-hero p,
+.about-hero h1,
+.about-hero p {
+  text-align: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Make the subtitle not stick left due to max-width rules */
+.page-hero p,
+.about-hero p {
+  max-width: 720px !important;
+}

@@ -3301,3 +3301,28 @@ body {
 .services-hero-container p {
   margin: 0 auto !important;
 }
+
+/* =========================
+   ABOUT HERO — FORCE CENTER
+========================= */
+
+.about-hero {
+  text-align: center !important;
+}
+
+.about-hero-container {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.about-hero-container h1,
+.about-hero-container p {
+  text-align: center !important;
+}
+
+.about-hero-container p {
+  max-width: 700px !important;
+  margin: 0 auto !important;
+}

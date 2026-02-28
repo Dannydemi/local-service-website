@@ -3428,3 +3428,5 @@ body {
 .faq-hero-container p {
   max-width: 720px !important;
 }
+
+body { outline: 8px solid red !important; }

@@ -3429,4 +3429,86 @@ body {
   max-width: 720px !important;
 }
 
-body { outline: 8px solid red !important; }
+/* =====================================================
+   FAQ PAGE — FINAL CLEAN OVERRIDE (MATCHES YOUR HTML)
+   Paste at END of CSS
+===================================================== */
+
+/* Center FAQ hero text */
+.faq-hero {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+.faq-hero-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center !important;
+}
+
+.faq-hero-container h1,
+.faq-hero-container p {
+  text-align: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.faq-hero-container p {
+  max-width: 720px !important;
+}
+
+/* FAQ content container */
+.faq-section {
+  padding: 80px 20px;
+  background: #ffffff;
+}
+
+.faq-section .faq-container {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+/* Categories */
+.faq-category {
+  font-size: 28px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 60px 0 24px;
+}
+
+/* FAQ item card */
+.faq-section .faq-item {
+  margin-bottom: 18px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+}
+
+/* Question line (your HTML uses div, not button) */
+.faq-section .faq-question {
+  padding: 20px 24px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* Answer always visible (static FAQ) */
+.faq-section .faq-answer {
+  display: block !important;
+  background: #f8fafc;
+  padding: 0 !important;
+}
+
+.faq-section .faq-answer p {
+  padding: 0 24px 20px !important;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #475569;
+  margin: 0;
+}

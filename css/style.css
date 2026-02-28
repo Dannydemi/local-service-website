@@ -3277,3 +3277,27 @@ body {
   margin-left: auto !important;
   margin-right: auto !important;
 }
+
+/* =========================
+   SERVICES HERO — HARD CENTER OVERRIDE
+========================= */
+
+.services-hero {
+  text-align: center !important;
+}
+
+.services-hero-container {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.services-hero-container h1,
+.services-hero-container p {
+  text-align: center !important;
+}
+
+.services-hero-container p {
+  margin: 0 auto !important;
+}

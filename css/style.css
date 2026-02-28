@@ -3530,3 +3530,21 @@ body {
 .standards-hero p{
   color: #e0e7ff !important;
 }
+
+/* =========================================
+   REVIEWS (SERVICE STANDARDS) HERO — BLUE
+   Paste at END of CSS
+========================================= */
+
+.standards-hero{
+  background: linear-gradient(180deg, #2563eb 0%, #1e40af 100%) !important;
+  color: #ffffff !important;
+}
+
+.standards-hero h1{
+  color: #ffffff !important;
+}
+
+.standards-hero p{
+  color: #e0e7ff !important;
+}

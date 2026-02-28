@@ -3264,3 +3264,16 @@ body {
 .cookie-btn:hover {
   opacity: 0.9;
 }
+
+/* =========================
+   FORCE CENTER SERVICES HERO
+========================= */
+
+.services-hero-container {
+  text-align: center !important;
+}
+
+.services-hero p {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}

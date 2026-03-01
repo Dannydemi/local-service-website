@@ -383,3 +383,21 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 800);
   }, true);
 });
+
+// ===============================
+// HARD FIX: Mobile menu toggles twice (duplicate listeners)
+// Paste at VERY END of main.js
+// ===============================
+document.addEventListener("DOMContentLoaded", function () {
+  const btn = document.getElementById("menuBtn");
+  const menu = document.getElementById("mobileMenu");
+  if (!btn || !menu) return;
+
+  // Capture click BEFORE other listeners, then block them
+  btn.addEventListener("click", function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    e.stopImmediatePropagation(); // ✅ blocks duplicate click handlers
+    menu.classList.toggle("open");
+  }, true);
+});

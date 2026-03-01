@@ -285,6 +285,81 @@ or note your area for future coverage.
 
 </footer>
 
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const citiesGrid = document.getElementById("citiesGrid");
+  const citiesTitle = document.getElementById("cities-title");
+  const stateItems = document.querySelectorAll(".state-item");
+
+  // Safety: if not on Areas page, do nothing
+  if (!citiesGrid || !citiesTitle || !stateItems.length) return;
+
+  const stateData = {
+    california: [
+      "Los Angeles","San Francisco","San Diego","Sacramento","Oakland",
+      "Long Beach","Anaheim","Santa Ana","Riverside","Stockton"
+    ],
+    texas: [
+      "Houston","Dallas","Austin","San Antonio","Fort Worth",
+      "Arlington","Corpus Christi","Plano","Garland","Irving"
+    ],
+    florida: [
+      "Miami","Orlando","Tampa","Jacksonville","St. Petersburg",
+      "Hialeah","Fort Lauderdale","Tallahassee","Doral","Pembroke Pines"
+    ],
+    newyork: [
+      "New York City","Buffalo","Rochester","Yonkers","Albany",
+      "Syracuse","Troy","Niagara Falls","Utica","Glens Falls"
+    ],
+    illinois: [
+      "Chicago","Aurora","Rockford","Joliet","Naperville",
+      "Springfield","Peoria","Evanston","Cicero","Schaumburg"
+    ]
+  };
+
+  function formatStateName(key) {
+    const map = {
+      california: "California",
+      texas: "Texas",
+      florida: "Florida",
+      newyork: "New York",
+      illinois: "Illinois"
+    };
+    return map[key] || (key.charAt(0).toUpperCase() + key.slice(1));
+  }
+
+  function renderCities(stateKey) {
+    const cities = stateData[stateKey];
+    if (!cities) return;
+
+    citiesGrid.innerHTML = "";
+    citiesTitle.textContent = "Cities in " + formatStateName(stateKey);
+
+    cities.forEach(function (city) {
+      const card = document.createElement("div");
+      card.className = "city-card";
+      card.innerHTML =
+        '<div class="city-name">' + city + '</div>' +
+        '<div class="city-state">' + formatStateName(stateKey) + '</div>';
+      citiesGrid.appendChild(card);
+    });
+  }
+
+  // Bind clicks
+  stateItems.forEach(function (item) {
+    item.addEventListener("click", function () {
+      stateItems.forEach(function (s) { s.classList.remove("active"); });
+      item.classList.add("active");
+      renderCities(item.getAttribute("data-state"));
+    });
+  });
+
+  // Render initial state based on which LI is active in HTML
+  const active = document.querySelector(".state-item.active");
+  renderCities(active ? active.getAttribute("data-state") : "california");
+});
+</script>
+
  <script src="js/main.js"></script>
 </body>
 </html>

@@ -3548,3 +3548,33 @@ body {
 .standards-hero p{
   color: #e0e7ff !important;
 }
+
+/* ==========================
+   MOBILE MENU FIX (Android)
+   ========================== */
+.mobile-menu{
+  display: none;
+}
+
+.mobile-menu.open{
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  z-index: 9999;
+}
+
+/* Ensure header stays above page content */
+.nav{
+  position: sticky; /* or relative; sticky is usually fine */
+  top: 0;
+  z-index: 9999;
+}
+
+/* Prevent the menu button from being unclickable on Android */
+.menu-btn{
+  position: relative;
+  z-index: 10000;
+  -webkit-tap-highlight-color: transparent;
+}

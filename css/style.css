@@ -3578,3 +3578,16 @@ body {
   z-index: 10000;
   -webkit-tap-highlight-color: transparent;
 }
+
+/* ==========================
+   MOBILE MENU: DO NOT OVERLAY HERO
+   ========================== */
+.mobile-menu.open{
+  position: static !important;  /* removes absolute overlay */
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  width: 100%;
+  background: #ffffff;
+  z-index: auto !important;
+}

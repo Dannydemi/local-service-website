@@ -3620,3 +3620,39 @@ body {
     background: #ffffff;
   }
 }
+
+/* =====================================================
+   MOBILE MENU — HARD FIX (NO OVERLAY, PUSHES HERO DOWN)
+   Paste at VERY END of style.css
+===================================================== */
+@media (max-width: 767px){
+
+  /* make sure header can grow */
+  .nav{
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* allow a new row under the logo/button row (safe) */
+  .nav-container{
+    flex-wrap: wrap !important;
+  }
+
+  /* FORCE the menu to behave like a normal block under the nav */
+  #mobileMenu{
+    display: none !important;
+    position: static !important;     /* kills absolute/fixed overlay */
+    width: 100% !important;
+    flex-basis: 100% !important;     /* if it's inside .nav-container */
+    background: #ffffff !important;
+    border-top: 1px solid #e5e7eb !important;
+    padding: 16px !important;
+    z-index: 1 !important;
+  }
+
+  /* open state */
+  #mobileMenu.open{
+    display: block !important;
+    position: static !important;
+  }
+}

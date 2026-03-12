@@ -96,7 +96,8 @@ Commission payments support the PrimeLocal Lead platform and continued delivery 
 
 <script>
 
-const jobInput = document.getElementById("jobAmount");
+window.addEventListener("load", function(){
+
 const commissionInput = document.getElementById("commissionAmount");
 const paymentDisplay = document.getElementById("paymentAmount");
 
@@ -117,7 +118,6 @@ createOrder: function(data, actions) {
 if(paymentValue <= 0){
 
 alert("Please enter the commission amount.");
-
 return;
 
 }
@@ -138,13 +138,15 @@ onApprove: function(data, actions) {
 
 return actions.order.capture().then(function(details){
 
-alert("Payment successful. Thank you for your commission payment!");
+alert("Payment successful! Thank you for your commission payment.");
 
 });
 
 }
 
 }).render('#paypal-button-container');
+
+});
 
 </script>
 

@@ -92,11 +92,9 @@ Commission payments support the PrimeLocal Lead platform and continued delivery 
 </div>
 
 <!-- PAYPAL SDK -->
-<script src="https://www.paypal.com/sdk/js?client-id=AYZDmB-CQhxqgica_0eZ9_XVTgd7liusFZPaS2PReDa18PiJ3Kt39KGPvvGc0cyjtjHkJYLl5XgnfG3mH&currency=USD&components=buttons&disable-funding=paylater"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=AYZDmB-CQhxqgica_0eZ9_XVTgd7liusFZPaS2PReDa18PiJ3Kt39KGPvvGc0cyjtjHkJYLl5XgnfG3mH&currency=USD"></script>
 
 <script>
-
-document.addEventListener("DOMContentLoaded", function(){
 
 const commissionInput = document.getElementById("commissionAmount");
 const paymentDisplay = document.getElementById("paymentAmount");
@@ -108,19 +106,13 @@ let paymentValue = 0;
 commissionInput.addEventListener("input", function(){
 
 paymentValue = parseFloat(commissionInput.value) || 0;
-
-paymentDisplay.textContent = paymentValue.toFixed(2);
+paymentDisplay.innerText = paymentValue.toFixed(2);
 
 });
 
-/* Wait until PayPal SDK is available */
+/* Render PayPal button AFTER SDK loads */
 
-function initializePayPal(){
-
-if(typeof paypal === "undefined"){
-console.error("PayPal SDK not loaded.");
-return;
-}
+window.onload = function(){
 
 paypal.Buttons({
 
@@ -152,19 +144,13 @@ alert("Payment successful! Thank you for your commission payment.");
 },
 
 onError: function(err){
-console.error("PayPal error:", err);
-alert("There was an issue processing the payment. Please try again.");
+console.error(err);
+alert("Payment failed. Please try again.");
 }
 
 }).render('#paypal-button-container');
 
-}
-
-/* Slight delay to ensure SDK loads */
-
-setTimeout(initializePayPal, 500);
-
-});
+};
 
 </script>
 

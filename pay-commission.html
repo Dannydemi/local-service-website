@@ -11,22 +11,23 @@
 <style>
 
 .payment-container{
-max-width:600px;
+max-width:620px;
 margin:80px auto;
-padding:30px;
-background:#fff;
+padding:35px;
+background:#ffffff;
 border-radius:8px;
 box-shadow:0 4px 20px rgba(0,0,0,0.08);
-text-align:center;
 }
 
 .payment-container h1{
+text-align:center;
 margin-bottom:10px;
 }
 
 .payment-container p{
-margin-bottom:25px;
+text-align:center;
 color:#555;
+margin-bottom:30px;
 }
 
 .payment-container input{
@@ -42,14 +43,22 @@ font-size:16px;
 background:#f5f7ff;
 padding:15px;
 border-radius:6px;
+margin-top:10px;
 margin-bottom:20px;
 font-weight:600;
+text-align:center;
 }
 
-.pay-note{
-font-size:14px;
+.paypal-container{
+margin-top:25px;
+text-align:center;
+}
+
+.note{
+font-size:13px;
 color:#777;
-margin-top:10px;
+margin-top:15px;
+text-align:center;
 }
 
 </style>
@@ -62,18 +71,22 @@ margin-top:10px;
 
 <h1>Pay Commission</h1>
 
-<p>Enter the total value of the completed job.</p>
+<p>Complete your commission payment for the job received through PrimeLocal Lead.</p>
 
-<input type="number" id="jobAmount" placeholder="Job Value ($)">
+<input type="text" id="providerName" placeholder="Provider / Business Name">
+
+<input type="number" id="jobAmount" placeholder="Total Job Value ($)">
+
+<input type="number" id="commissionAmount" placeholder="Commission Amount Due ($)">
 
 <div class="result-box">
-Commission Due: $<span id="commissionAmount">0</span>
+Commission Payment: $<span id="paymentAmount">0</span>
 </div>
 
-<div id="paypal-button-container"></div>
+<div id="paypal-button-container" class="paypal-container"></div>
 
-<p class="pay-note">
-Commission payments help maintain the PrimeLocal Lead platform and continue delivering qualified leads.
+<p class="note">
+Commission payments support the PrimeLocal Lead platform and continued delivery of qualified leads.
 </p>
 
 </div>
@@ -83,20 +96,17 @@ Commission payments help maintain the PrimeLocal Lead platform and continue deli
 
 <script>
 
-const commissionRate = 0.10; // 10% commission
-
 const jobInput = document.getElementById("jobAmount");
-const commissionDisplay = document.getElementById("commissionAmount");
+const commissionInput = document.getElementById("commissionAmount");
+const paymentDisplay = document.getElementById("paymentAmount");
 
-let commissionValue = 0;
+let paymentValue = 0;
 
-jobInput.addEventListener("input", function(){
+commissionInput.addEventListener("input", function(){
 
-const jobValue = parseFloat(jobInput.value) || 0;
+paymentValue = parseFloat(commissionInput.value) || 0;
 
-commissionValue = (jobValue * commissionRate).toFixed(2);
-
-commissionDisplay.innerText = commissionValue;
+paymentDisplay.innerText = paymentValue.toFixed(2);
 
 });
 
@@ -104,9 +114,9 @@ paypal.Buttons({
 
 createOrder: function(data, actions) {
 
-if(commissionValue <= 0){
+if(paymentValue <= 0){
 
-alert("Please enter the job value first.");
+alert("Please enter the commission amount.");
 
 return;
 
@@ -116,7 +126,7 @@ return actions.order.create({
 
 purchase_units: [{
 amount: {
-value: commissionValue
+value: paymentValue.toFixed(2)
 }
 }]
 
@@ -126,9 +136,9 @@ value: commissionValue
 
 onApprove: function(data, actions) {
 
-return actions.order.capture().then(function(details) {
+return actions.order.capture().then(function(details){
 
-alert("Payment successful! Thank you for paying your commission.");
+alert("Payment successful. Thank you for your commission payment!");
 
 });
 

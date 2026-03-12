@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pay Commission | PrimeLocal Lead</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+
+.payment-container{
+max-width:600px;
+margin:80px auto;
+padding:30px;
+background:#fff;
+border-radius:8px;
+box-shadow:0 4px 20px rgba(0,0,0,0.08);
+text-align:center;
+}
+
+.payment-container h1{
+margin-bottom:10px;
+}
+
+.payment-container p{
+margin-bottom:25px;
+color:#555;
+}
+
+.payment-container input{
+width:100%;
+padding:12px;
+margin-bottom:15px;
+border:1px solid #ddd;
+border-radius:6px;
+font-size:16px;
+}
+
+.result-box{
+background:#f5f7ff;
+padding:15px;
+border-radius:6px;
+margin-bottom:20px;
+font-weight:600;
+}
+
+.pay-note{
+font-size:14px;
+color:#777;
+margin-top:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="payment-container">
+
+<h1>Pay Commission</h1>
+
+<p>Enter the total value of the completed job.</p>
+
+<input type="number" id="jobAmount" placeholder="Job Value ($)">
+
+<div class="result-box">
+Commission Due: $<span id="commissionAmount">0</span>
+</div>
+
+<div id="paypal-button-container"></div>
+
+<p class="pay-note">
+Commission payments help maintain the PrimeLocal Lead platform and continue delivering qualified leads.
+</p>
+
+</div>
+
+<!-- PAYPAL SDK -->
+<script src="https://www.paypal.com/sdk/js?client-id=AYZDmB-CQhxqgica_0eZ9_XVTgd7liusFZPaS2PReDa18PiJ3Kt39KGPvvGc0cyjtjHkJYLl5XgnfG3mH&currency=USD"></script>
+
+<script>
+
+const commissionRate = 0.10; // 10% commission
+
+const jobInput = document.getElementById("jobAmount");
+const commissionDisplay = document.getElementById("commissionAmount");
+
+let commissionValue = 0;
+
+jobInput.addEventListener("input", function(){
+
+const jobValue = parseFloat(jobInput.value) || 0;
+
+commissionValue = (jobValue * commissionRate).toFixed(2);
+
+commissionDisplay.innerText = commissionValue;
+
+});
+
+paypal.Buttons({
+
+createOrder: function(data, actions) {
+
+if(commissionValue <= 0){
+
+alert("Please enter the job value first.");
+
+return;
+
+}
+
+return actions.order.create({
+
+purchase_units: [{
+amount: {
+value: commissionValue
+}
+}]
+
+});
+
+},
+
+onApprove: function(data, actions) {
+
+return actions.order.capture().then(function(details) {
+
+alert("Payment successful! Thank you for paying your commission.");
+
+});
+
+}
+
+}).render('#paypal-button-container');
+
+</script>
+
+</body>
+</html>

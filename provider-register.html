@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Service Provider Registration | PrimeLocal Lead</title>
+
+<link rel="stylesheet" href="../css/style.css">
+
+<style>
+.provider-form{
+max-width:700px;
+margin:60px auto;
+padding:30px;
+background:#fff;
+border-radius:8px;
+box-shadow:0 4px 20px rgba(0,0,0,0.08);
+}
+
+.provider-form h1{
+margin-bottom:20px;
+}
+
+.provider-form input,
+.provider-form select,
+.provider-form textarea{
+width:100%;
+padding:12px;
+margin-bottom:15px;
+border:1px solid #ddd;
+border-radius:6px;
+font-size:14px;
+}
+
+.provider-form button{
+background:#2563eb;
+color:#fff;
+border:none;
+padding:14px;
+width:100%;
+font-size:16px;
+border-radius:6px;
+cursor:pointer;
+}
+
+.provider-form button:hover{
+background:#1e4fd8;
+}
+
+.checkbox-group{
+display:flex;
+gap:20px;
+margin-bottom:20px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="provider-form">
+
+<h1>Join PrimeLocal Lead Network</h1>
+
+<p>Register your business to start receiving qualified local leads.</p>
+
+<form id="providerForm">
+
+<input type="text" name="businessName" placeholder="Business Name" required>
+
+<input type="text" name="serviceCategory" placeholder="Service Category (Plumbing, Roofing, Electrical...)" required>
+
+<input type="text" name="servicesOffered" placeholder="Services Offered">
+
+<input type="text" name="serviceArea" placeholder="Service Area">
+
+<input type="text" name="city" placeholder="City">
+
+<input type="text" name="state" placeholder="State / Region">
+
+<input type="text" name="zip" placeholder="Zip Code">
+
+<input type="text" name="contactPerson" placeholder="Contact Person">
+
+<input type="text" name="phone" placeholder="Phone Number" required>
+
+<input type="email" name="email" placeholder="Business Email" required>
+
+<input type="text" name="address" placeholder="Business Address">
+
+<input type="number" name="years" placeholder="Years in Business">
+
+<input type="text" name="website" placeholder="Website (optional)">
+
+<input type="text" name="googleProfile" placeholder="Google Business Profile Link">
+
+<select name="emergency">
+<option value="">Emergency Services Available?</option>
+<option>Yes</option>
+<option>No</option>
+</select>
+
+<input type="text" name="hours" placeholder="Business Hours">
+
+<input type="text" name="priceRange" placeholder="Average Job Price Range">
+
+<div class="checkbox-group">
+<label>
+<input type="checkbox" name="insurance" value="Yes">
+Appropriate Insurance
+</label>
+
+<label>
+<input type="checkbox" name="license" value="Yes">
+Appropriate License
+</label>
+</div>
+
+<label>
+<input type="checkbox" name="agreement" value="Agreed" required>
+I agree to PrimeLocal Lead commission terms
+</label>
+
+<button type="submit">Register as Provider</button>
+
+</form>
+
+<p id="formMessage"></p>
+
+</div>
+
+<script>
+
+const scriptURL = "https://script.google.com/macros/s/AKfycbyraoVcpUUYi8t-ZYthmWk6EmnDQhUq_ZfaxMk_Du5jAYvbQSJ0F0WlwERG_oyrdhHhOQ/exec";
+
+const form = document.getElementById("providerForm");
+
+form.addEventListener("submit", e => {
+
+e.preventDefault();
+
+const formData = new FormData(form);
+
+const data = {};
+
+formData.forEach((value,key)=>{
+
+data[key]=value;
+
+});
+
+fetch(scriptURL,{
+method:"POST",
+body:JSON.stringify(data)
+})
+.then(res=>res.json())
+.then(res=>{
+
+document.getElementById("formMessage").innerText="Registration submitted successfully.";
+
+form.reset();
+
+})
+.catch(error=>{
+
+document.getElementById("formMessage").innerText="Something went wrong.";
+
+});
+
+});
+
+</script>
+
+</body>
+</html>

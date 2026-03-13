@@ -77,8 +77,13 @@ justify-content:center;
 gap:8px;
 margin-bottom:20px;
 text-align:center;
-flex-wrap:wrap;
 }
+
+.agreement-label span{
+display:inline-block;
+}
+
+/* FORM MESSAGE */
 
 #formMessage{
 margin-top:15px;
@@ -214,8 +219,10 @@ Appropriate License
 
 <label class="agreement-label">
 <input type="checkbox" id="agreementCheck" name="agreement" value="Agreed" required>
+<span>
 I agree to PrimeLocal Lead commission terms and 
 <a href="#" id="privacyLink">Privacy Policy</a>
+</span>
 </label>
 
 <button type="submit">Register as Provider</button>

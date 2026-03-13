@@ -27,7 +27,9 @@ text-align:center;
 text-align:center;
 }
 
-.provider-form input,
+/* IMPORTANT FIX — excludes checkboxes */
+
+.provider-form input:not([type="checkbox"]),
 .provider-form select,
 .provider-form textarea{
 width:100%;
@@ -53,7 +55,7 @@ cursor:pointer;
 background:#1e4fd8;
 }
 
-/* CHECKBOX GROUP */
+/* INSURANCE + LICENSE */
 
 .checkbox-group{
 display:flex;
@@ -68,7 +70,7 @@ align-items:center;
 gap:8px;
 }
 
-/* AGREEMENT CHECKBOX */
+/* AGREEMENT */
 
 .agreement-label{
 display:flex;
@@ -78,12 +80,6 @@ gap:8px;
 margin-bottom:20px;
 text-align:center;
 }
-
-.agreement-label span{
-display:inline-block;
-}
-
-/* FORM MESSAGE */
 
 #formMessage{
 margin-top:15px;
@@ -132,29 +128,27 @@ cursor:pointer;
 
 <body>
 
-<!-- HEADER -->
-
 <header class="nav">
-  <div class="nav-container">
+<div class="nav-container">
 
-    <div class="logo">
-      <div class="logo-box">PL</div>
-      <span class="site-name">PrimeLocal Lead</span>
-    </div>
+<div class="logo">
+<div class="logo-box">PL</div>
+<span class="site-name">PrimeLocal Lead</span>
+</div>
 
-    <nav class="nav-links">
-      <a href="../index.html">Home</a>
-      <a href="../about.html">About</a>
-      <a href="../services.html">Services</a>
-      <a href="../areas.html">Areas</a>
-      <a href="../reviews.html">Reviews</a>
-      <a href="../faq.html">FAQ</a>
-      <a href="../contact.html">Contact</a>
-    </nav>
+<nav class="nav-links">
+<a href="../index.html">Home</a>
+<a href="../about.html">About</a>
+<a href="../services.html">Services</a>
+<a href="../areas.html">Areas</a>
+<a href="../reviews.html">Reviews</a>
+<a href="../faq.html">FAQ</a>
+<a href="../contact.html">Contact</a>
+</nav>
 
-    <a href="tel:+1-956-707-3261" class="call-btn">Call Now</a>
+<a href="tel:+1-956-707-3261" class="call-btn">Call Now</a>
 
-  </div>
+</div>
 </header>
 
 <div class="provider-form">
@@ -219,10 +213,8 @@ Appropriate License
 
 <label class="agreement-label">
 <input type="checkbox" id="agreementCheck" name="agreement" value="Agreed" required>
-<span>
-I agree to PrimeLocal Lead commission terms and 
+I agree to PrimeLocal Lead commission terms and
 <a href="#" id="privacyLink">Privacy Policy</a>
-</span>
 </label>
 
 <button type="submit">Register as Provider</button>
@@ -232,8 +224,6 @@ I agree to PrimeLocal Lead commission terms and
 <p id="formMessage"></p>
 
 </div>
-
-<!-- PRIVACY POLICY MODAL -->
 
 <div id="privacyModal">
 
@@ -249,52 +239,50 @@ I agree to PrimeLocal Lead commission terms and
 
 </div>
 
-<!-- FOOTER -->
-
 <footer class="footer">
-  <div class="footer-container">
+<div class="footer-container">
 
-    <div class="footer-brand">
-      <h3>PrimeLocal Lead</h3>
-      <p>Connecting local customers with trusted service professionals.</p>
-    </div>
+<div class="footer-brand">
+<h3>PrimeLocal Lead</h3>
+<p>Connecting local customers with trusted service professionals.</p>
+</div>
 
-    <div class="footer-links">
-      <h4>Quick Links</h4>
-      <a href="../index.html">Home</a>
-      <a href="../about.html">About</a>
-      <a href="../services.html">Services</a>
-      <a href="../contact.html">Contact</a>
-    </div>
+<div class="footer-links">
+<h4>Quick Links</h4>
+<a href="../index.html">Home</a>
+<a href="../about.html">About</a>
+<a href="../services.html">Services</a>
+<a href="../contact.html">Contact</a>
+</div>
 
-    <div class="footer-contact">
-      <h4>Contact</h4>
-      <a href="tel:+19567073261">+1-956-707-3261</a><br>
-      <a href="mailto:support@primelocallead.com">support@primelocallead.com</a>
-    </div>
+<div class="footer-contact">
+<h4>Contact</h4>
+<a href="tel:+19567073261">+1-956-707-3261</a><br>
+<a href="mailto:support@primelocallead.com">support@primelocallead.com</a>
+</div>
 
-    <div class="footer-bottom">
-      <p>© <span id="current-year"></span> PrimeLocal Lead. All rights reserved.</p>
-    </div>
+<div class="footer-bottom">
+<p>© <span id="current-year"></span> PrimeLocal Lead. All rights reserved.</p>
+</div>
 
-  </div>
+</div>
 </footer>
 
 <script>
 
-const scriptURL = "https://script.google.com/macros/s/AKfycbyraoVcpUUYi8t-ZYthmWk6EmnDQhUq_ZfaxMk_Du5jAYvbQSJ0F0WlwERG_oyrdhHhOQ/exec";
+const scriptURL="https://script.google.com/macros/s/AKfycbyraoVcpUUYi8t-ZYthmWk6EmnDQhUq_ZfaxMk_Du5jAYvbQSJ0F0WlwERG_oyrdhHhOQ/exec";
 
-const form = document.getElementById("providerForm");
-const message = document.getElementById("formMessage");
+const form=document.getElementById("providerForm");
+const message=document.getElementById("formMessage");
 
-form.addEventListener("submit", function(e){
+form.addEventListener("submit",function(e){
 
 e.preventDefault();
 
 message.style.color="#333";
 message.innerText="Submitting registration...";
 
-const formData = new FormData(form);
+const formData=new FormData(form);
 const data={};
 
 formData.forEach((value,key)=>{
@@ -322,26 +310,22 @@ message.innerText="Submission failed. Please try again.";
 
 });
 
-/* PRIVACY MODAL */
+const privacyLink=document.getElementById("privacyLink");
+const privacyModal=document.getElementById("privacyModal");
+const closePolicy=document.getElementById("closePolicy");
+const agreementCheck=document.getElementById("agreementCheck");
 
-const privacyLink = document.getElementById("privacyLink");
-const privacyModal = document.getElementById("privacyModal");
-const closePolicy = document.getElementById("closePolicy");
-const agreementCheck = document.getElementById("agreementCheck");
-
-privacyLink.addEventListener("click", function(e){
+privacyLink.addEventListener("click",function(e){
 e.preventDefault();
 privacyModal.style.display="flex";
 });
 
-closePolicy.addEventListener("click", function(){
+closePolicy.addEventListener("click",function(){
 privacyModal.style.display="none";
 agreementCheck.checked=true;
 });
 
-/* AUTO YEAR */
-
-document.getElementById("current-year").textContent = new Date().getFullYear();
+document.getElementById("current-year").textContent=new Date().getFullYear();
 
 </script>
 

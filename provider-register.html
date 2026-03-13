@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="../css/style.css">
 
 <style>
+
 .provider-form{
 max-width:700px;
 margin:60px auto;
@@ -19,6 +20,11 @@ box-shadow:0 4px 20px rgba(0,0,0,0.08);
 
 .provider-form h1{
 margin-bottom:20px;
+text-align:center;
+}
+
+.provider-form p{
+text-align:center;
 }
 
 .provider-form input,
@@ -47,15 +53,38 @@ cursor:pointer;
 background:#1e4fd8;
 }
 
+/* CENTERED CHECKBOX GROUP */
+
 .checkbox-group{
 display:flex;
-gap:20px;
+justify-content:center;
+align-items:center;
+gap:40px;
+margin-bottom:20px;
+text-align:center;
+}
+
+.checkbox-group label{
+display:flex;
+align-items:center;
+gap:8px;
+}
+
+/* AGREEMENT CHECKBOX */
+
+.provider-form label{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:8px;
+text-align:center;
 margin-bottom:20px;
 }
 
 #formMessage{
 margin-top:15px;
 font-weight:600;
+text-align:center;
 }
 
 /* PRIVACY MODAL */
@@ -92,6 +121,7 @@ border:none;
 border-radius:5px;
 cursor:pointer;
 }
+
 </style>
 
 </head>
@@ -124,10 +154,6 @@ cursor:pointer;
 </header>
 
 <div class="provider-form">
-
-<a href="../index.html" style="display:inline-block;margin-bottom:15px;color:#2563eb;text-decoration:none;font-weight:600;">
-← Back to Home
-</a>
 
 <h1>Join PrimeLocal Lead Network</h1>
 
@@ -174,6 +200,7 @@ cursor:pointer;
 <input type="text" name="priceRange" placeholder="Average Job Price Range">
 
 <div class="checkbox-group">
+
 <label>
 <input type="checkbox" name="insurance" value="Yes">
 Appropriate Insurance
@@ -183,6 +210,7 @@ Appropriate Insurance
 <input type="checkbox" name="license" value="Yes">
 Appropriate License
 </label>
+
 </div>
 
 <label>
@@ -288,7 +316,7 @@ message.innerText="Submission failed. Please try again.";
 
 });
 
-/* PRIVACY POLICY MODAL SCRIPT */
+/* PRIVACY POLICY MODAL */
 
 const privacyLink = document.getElementById("privacyLink");
 const privacyModal = document.getElementById("privacyModal");

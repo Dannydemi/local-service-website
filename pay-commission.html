@@ -73,11 +73,11 @@ text-align:center;
 
 <p>Complete your commission payment for the job received through PrimeLocal Lead.</p>
 
-<input type="text" id="providerName" placeholder="Provider / Business Name">
+<input type="text" id="providerName" placeholder="Provider / Business Name" readonly>
 
 <input type="number" id="jobAmount" placeholder="Total Job Value ($)">
 
-<input type="number" id="commissionAmount" placeholder="Commission Amount Due ($)">
+<input type="number" id="commissionAmount" placeholder="Commission Amount Due ($)" readonly>
 
 <div class="result-box">
 Commission Payment: $<span id="paymentAmount">0</span>
@@ -98,41 +98,61 @@ Commission payments support the PrimeLocal Lead platform and continued delivery 
 
 document.addEventListener("DOMContentLoaded", function(){
 
-/* Detect Provider ID from URL */
+/* Detect provider from URL */
 
 const urlParams = new URLSearchParams(window.location.search);
 const providerID = urlParams.get("provider");
 
-console.log("Provider ID:", providerID);
+/* API URL (your Apps Script endpoint) */
 
+const apiURL = "YOUR_SCRIPT_URL?action=providers";
 
-/* Existing Script */
-
+const providerInput = document.getElementById("providerName");
+const jobInput = document.getElementById("jobAmount");
 const commissionInput = document.getElementById("commissionAmount");
 const paymentDisplay = document.getElementById("paymentAmount");
 
+let commissionRate = 0;
 let paymentValue = 0;
 
-/* Update displayed commission */
+/* Fetch provider database */
 
-commissionInput.addEventListener("input", function(){
+fetch(apiURL)
+.then(res => res.json())
+.then(data => {
 
-paymentValue = parseFloat(commissionInput.value) || 0;
+const provider = data.find(p => p["Provider ID"] === providerID);
+
+if(provider){
+
+providerInput.value = provider["Business Name"];
+commissionRate = parseFloat(provider["Commission Rate"]);
+
+}
+
+});
+
+/* Calculate commission automatically */
+
+jobInput.addEventListener("input", function(){
+
+const jobValue = parseFloat(jobInput.value) || 0;
+
+paymentValue = (jobValue * commissionRate) / 100;
+
+commissionInput.value = paymentValue.toFixed(2);
 
 paymentDisplay.textContent = paymentValue.toFixed(2);
 
 });
 
-/* Initialize PayPal buttons */
+/* PayPal Button */
 
 function initPayPal(){
 
 if(typeof paypal === "undefined"){
-
 console.error("PayPal SDK did not load.");
-
 return;
-
 }
 
 paypal.Buttons({
@@ -141,7 +161,7 @@ createOrder: function(data, actions){
 
 if(paymentValue <= 0){
 
-alert("Please enter the commission amount.");
+alert("Please enter the job value.");
 
 return;
 
@@ -181,8 +201,6 @@ alert("Payment failed. Please try again.");
 }).render('#paypal-button-container');
 
 }
-
-/* Wait briefly for SDK */
 
 setTimeout(initPayPal, 600);
 

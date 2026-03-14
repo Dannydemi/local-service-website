@@ -91,8 +91,8 @@ Commission payments support the PrimeLocal Lead platform and continued delivery 
 
 </div>
 
-<!-- PAYPAL SDK (SIMPLIFIED AND FIXED) -->
-<script src="https://www.paypal.com/sdk/js?client-id=AYZDmB-CQhxqgica_0eZ9_XVTgd7liusFZPaS2PReDa18PiJ3Kt39KGPvvGc0cyjtjHkJYLl5XgnfG3mH&currency=USD"></script>
+<!-- PAYPAL SDK -->
+<script src="https://www.paypal.com/sdk/js?client-id=AYZDmB-CQhxqgica_0eZ9_XVTgd7liusFZPaS2PReDa18PiJ3Kt39KGPvvGc0cyjtjHkJYLl5XgnfG3mH&currency=USD&intent=capture"></script>
 
 <script>
 
@@ -113,13 +113,16 @@ paymentDisplay.textContent = paymentValue.toFixed(2);
 
 });
 
-/* Wait for PayPal SDK */
+/* Initialize PayPal buttons */
 
-function loadPayPal(){
+function initPayPal(){
 
 if(typeof paypal === "undefined"){
+
 console.error("PayPal SDK did not load.");
+
 return;
+
 }
 
 paypal.Buttons({
@@ -137,10 +140,10 @@ return;
 return actions.order.create({
 
 purchase_units: [{
+description: "PrimeLocal Lead Commission Payment",
 amount: {
 value: paymentValue.toFixed(2)
-},
-description: "PrimeLocal Lead Commission Payment"
+}
 }]
 
 });
@@ -169,9 +172,9 @@ alert("Payment failed. Please try again.");
 
 }
 
-/* Give SDK time to initialize */
+/* Wait briefly for SDK */
 
-setTimeout(loadPayPal, 800);
+setTimeout(initPayPal, 600);
 
 });
 

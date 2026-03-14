@@ -80,7 +80,7 @@ text-align:center;
 <input type="number" id="commissionAmount" placeholder="Commission Amount Due ($)">
 
 <div class="result-box">
-Commission Payment: $<span id="paymentAmount">0.00</span>
+Commission Payment: $<span id="paymentAmount">0</span>
 </div>
 
 <div id="paypal-button-container" class="paypal-container"></div>
@@ -91,26 +91,31 @@ Commission payments support the PrimeLocal Lead platform and continued delivery 
 
 </div>
 
-<!-- PAYPAL SDK (clean version) -->
-<script src="https://www.paypal.com/sdk/js?client-id=AYZDmB-CQhxqgica_0eZ9_XVTgd7liusFZPaS2PReDa18PiJ3Kt39KGPvvGc0cyjtjHkJYLl5XgnfG3mH"></script>
+<!-- PAYPAL SDK (SIMPLIFIED AND FIXED) -->
+<script src="https://www.paypal.com/sdk/js?client-id=AYZDmB-CQhxqgica_0eZ9_XVTgd7liusFZPaS2PReDa18PiJ3Kt39KGPvvGc0cyjtjHkJYLl5XgnfG3mH&currency=USD"></script>
 
 <script>
 
-let paymentValue = 0;
+document.addEventListener("DOMContentLoaded", function(){
 
 const commissionInput = document.getElementById("commissionAmount");
 const paymentDisplay = document.getElementById("paymentAmount");
 
+let paymentValue = 0;
+
+/* Update displayed commission */
+
 commissionInput.addEventListener("input", function(){
 
 paymentValue = parseFloat(commissionInput.value) || 0;
+
 paymentDisplay.textContent = paymentValue.toFixed(2);
 
 });
 
-/* Wait until PayPal SDK is ready */
+/* Wait for PayPal SDK */
 
-window.onload = function(){
+function loadPayPal(){
 
 if(typeof paypal === "undefined"){
 console.error("PayPal SDK did not load.");
@@ -124,6 +129,7 @@ createOrder: function(data, actions){
 if(paymentValue <= 0){
 
 alert("Please enter the commission amount.");
+
 return;
 
 }
@@ -133,7 +139,8 @@ return actions.order.create({
 purchase_units: [{
 amount: {
 value: paymentValue.toFixed(2)
-}
+},
+description: "PrimeLocal Lead Commission Payment"
 }]
 
 });
@@ -152,14 +159,21 @@ alert("Payment successful! Thank you for your commission payment.");
 
 onError: function(err){
 
-console.error("PayPal Error:", err);
+console.error("PayPal Checkout Error:", err);
+
 alert("Payment failed. Please try again.");
 
 }
 
 }).render('#paypal-button-container');
 
-};
+}
+
+/* Give SDK time to initialize */
+
+setTimeout(loadPayPal, 800);
+
+});
 
 </script>
 

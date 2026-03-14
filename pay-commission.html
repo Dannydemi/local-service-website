@@ -103,9 +103,9 @@ document.addEventListener("DOMContentLoaded", function(){
 const urlParams = new URLSearchParams(window.location.search);
 const providerID = urlParams.get("provider");
 
-/* API URL (your Apps Script endpoint) */
+/* Your Apps Script API */
 
-const apiURL = "YOUR_SCRIPT_URL?action=providers";
+const apiURL = "https://script.google.com/macros/s/AKfycbyraoVcpUUYi8t-ZYthmWk6EmnDQhUq_ZfaxMk_Du5jAYvbQSJ0F0WlwERG_oyrdhHhOQ/exec?action=providers";
 
 const providerInput = document.getElementById("providerName");
 const jobInput = document.getElementById("jobAmount");
@@ -115,7 +115,9 @@ const paymentDisplay = document.getElementById("paymentAmount");
 let commissionRate = 0;
 let paymentValue = 0;
 
-/* Fetch provider database */
+/* Load provider info */
+
+if(providerID){
 
 fetch(apiURL)
 .then(res => res.json())
@@ -126,13 +128,18 @@ const provider = data.find(p => p["Provider ID"] === providerID);
 if(provider){
 
 providerInput.value = provider["Business Name"];
-commissionRate = parseFloat(provider["Commission Rate"]);
+commissionRate = parseFloat(provider["Commission Rate"]) || 0;
 
 }
 
+})
+.catch(err=>{
+console.error("Provider API error:",err);
 });
 
-/* Calculate commission automatically */
+}
+
+/* Calculate commission */
 
 jobInput.addEventListener("input", function(){
 

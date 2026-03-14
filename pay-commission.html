@@ -98,6 +98,16 @@ Commission payments support the PrimeLocal Lead platform and continued delivery 
 
 document.addEventListener("DOMContentLoaded", function(){
 
+/* Detect Provider ID from URL */
+
+const urlParams = new URLSearchParams(window.location.search);
+const providerID = urlParams.get("provider");
+
+console.log("Provider ID:", providerID);
+
+
+/* Existing Script */
+
 const commissionInput = document.getElementById("commissionAmount");
 const paymentDisplay = document.getElementById("paymentAmount");
 

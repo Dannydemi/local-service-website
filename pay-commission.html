@@ -110,23 +110,31 @@ paymentDisplay.textContent = paymentValue.toFixed(2);
 
 });
 
-/* Render PayPal Buttons */
+/* Initialize PayPal Buttons */
 
 paypal.Buttons({
 
 createOrder: function(data, actions){
 
 if(paymentValue <= 0){
+
 alert("Please enter the commission amount.");
 return;
+
 }
 
 return actions.order.create({
+
 purchase_units: [{
+
 amount: {
+
 value: paymentValue.toFixed(2)
+
 }
+
 }]
+
 });
 
 },
@@ -143,7 +151,7 @@ alert("Payment successful! Thank you for your commission payment.");
 
 onError: function(err){
 
-console.error(err);
+console.error("PayPal Error:", err);
 alert("Payment failed. Please try again.");
 
 }

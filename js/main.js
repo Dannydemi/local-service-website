@@ -26,68 +26,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const stateData = {
     california: [
-      "Los Angeles",
-      "San Francisco",
-      "San Diego",
-      "Sacramento",
-      "Oakland",
-      "Long Beach",
-      "Anaheim",
-      "Santa Ana",
-      "Riverside",
-      "Stockton"
+      "Los Angeles","San Francisco","San Diego","Sacramento","Oakland",
+      "Long Beach","Anaheim","Santa Ana","Riverside","Stockton"
     ],
-
     texas: [
-      "Houston",
-      "Dallas",
-      "Austin",
-      "San Antonio",
-      "Fort Worth",
-      "Arlington",
-      "Corpus Christi",
-      "Plano",
-      "Garland",
-      "Irving"
+      "Houston","Dallas","Austin","San Antonio","Fort Worth",
+      "Arlington","Corpus Christi","Plano","Garland","Irving"
     ],
-
     florida: [
-      "Miami",
-      "Orlando",
-      "Tampa",
-      "Jacksonville",
-      "St. Petersburg",
-      "Hialeah",
-      "Fort Lauderdale",
-      "Tallahassee",
-      "Doral",
-      "Pembroke Pines"
+      "Miami","Orlando","Tampa","Jacksonville","St. Petersburg",
+      "Hialeah","Fort Lauderdale","Tallahassee","Doral","Pembroke Pines"
     ],
-
     newyork: [
-      "New York City",
-      "Buffalo",
-      "Rochester",
-      "Yonkers",
-      "Albany",
-      "Syracuse",
-      "Troy",
-      "Niagara Falls",
-      "Utica",
-      "Glens Falls"
+      "New York City","Buffalo","Rochester","Yonkers","Albany",
+      "Syracuse","Troy","Niagara Falls","Utica","Glens Falls"
     ],
-
     illinois: [
-      "Chicago",
-      "Aurora",
-      "Rockford",
-      "Joliet",
-      "Naperville",
-      "Springfield",
-      "Peoria",
-      "Evanston",
-      "Cicero",
-      "Schaumburg"
+      "Chicago","Aurora","Rockford","Joliet","Naperville",
+      "Springfield","Peoria","Evanston","Cicero","Schaumburg"
     ]
   };
 
@@ -116,10 +72,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Default load
   renderCities("california");
 
-  // State click handling
   stateItems.forEach(item => {
     item.addEventListener("click", () => {
       stateItems.forEach(s => s.classList.remove("active"));
@@ -128,27 +82,19 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-    /* ==========================
-     FAQ ACCORDION (FIXED)
+  /* ==========================
+     FAQ ACCORDION
   ========================== */
-
   const faqItems = document.querySelectorAll(".faq-item");
 
   faqItems.forEach(item => {
     const button = item.querySelector(".faq-question");
-
     if (!button) return;
 
     button.addEventListener("click", () => {
       const isOpen = item.classList.contains("active");
-
-      // Close all
       faqItems.forEach(i => i.classList.remove("active"));
-
-      // Open clicked one
-      if (!isOpen) {
-        item.classList.add("active");
-      }
+      if (!isOpen) item.classList.add("active");
     });
   });
 });
@@ -172,4 +118,88 @@ document.addEventListener("DOMContentLoaded", function () {
     banner.style.display = "none";
     banner.setAttribute("aria-hidden", "true");
   });
+});
+
+// ================= QUOTE FORM (GitHub Pages) =================
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("quoteForm");
+  if (!form) return;
+
+  const statusEl = document.getElementById("quoteStatus");
+  const btn = document.getElementById("quoteBtn");
+
+  // ✅ LIVE /exec URL (correct)
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzCI_G3HG-FIyyDR3W6u62-ji1CbjXb56O2FDR9MjYLsl4vUoN2M3y8zRPzUCcmwAtD/exec";
+
+  form.removeAttribute("action");
+  form.removeAttribute("method");
+  form.removeAttribute("target");
+
+  let iframe = document.getElementById("quote_hidden_iframe");
+  if (!iframe) {
+    iframe = document.createElement("iframe");
+    iframe.id = "quote_hidden_iframe";
+    iframe.name = "quote_hidden_iframe";
+    iframe.style.display = "none";
+    document.body.appendChild(iframe);
+  }
+
+  let hiddenForm = document.getElementById("quote_hidden_form");
+  if (!hiddenForm) {
+    hiddenForm = document.createElement("form");
+    hiddenForm.id = "quote_hidden_form";
+    hiddenForm.style.display = "none";
+    document.body.appendChild(hiddenForm);
+  }
+
+  hiddenForm.method = "POST";
+  hiddenForm.action = SCRIPT_URL;
+  hiddenForm.target = "quote_hidden_iframe";
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const hp = document.getElementById("websiteField");
+    if (hp && hp.value) return;
+
+    statusEl.textContent = "Submitting…";
+    btn.disabled = true;
+
+    hiddenForm.innerHTML = "";
+
+    const fd = new FormData(form);
+    fd.append("source", window.location.href);
+    fd.append("workflow_stage", "Lead received - needs qualification");
+
+    for (const [key, value] of fd.entries()) {
+      const input = document.createElement("input");
+      input.type = "hidden";
+      input.name = key;
+      input.value = value;
+      hiddenForm.appendChild(input);
+    }
+
+    hiddenForm.submit();
+
+    setTimeout(() => {
+      window.location.href = "thank-you.html";
+    }, 800);
+  }, true);
+});
+
+// ===============================
+// HARD FIX: Mobile menu toggles twice (duplicate listeners)
+// ===============================
+document.addEventListener("DOMContentLoaded", function () {
+  const btn = document.getElementById("menuBtn");
+  const menu = document.getElementById("mobileMenu");
+  if (!btn || !menu) return;
+
+  btn.addEventListener("click", function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+    menu.classList.toggle("open");
+  }, true);
 });

@@ -3668,3 +3668,8 @@ body {
   font-weight: 600;
   color: #0a2540; /* match your theme */
 }
+
+.logo-img {
+  height: 45px; /* perfect balance */
+  width: auto;
+}

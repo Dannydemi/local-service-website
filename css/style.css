@@ -3668,3 +3668,14 @@ body {
   font-weight: 600;
   color: #0a2540; /* match your theme */
 }
+
+.nav-container {
+  height: 70px;
+  display: flex;
+  align-items: center;
+}
+
+.logo-img {
+  height: 55px;
+  width: auto;
+}

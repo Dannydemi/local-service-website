@@ -3670,9 +3670,11 @@ body {
 }
 
 .nav-container {
-  height: 70px;
+  min-height: 80px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  overflow: visible;
 }
 
 .logo {
@@ -3683,22 +3685,23 @@ body {
 .logo-link {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   text-decoration: none;
 }
 
-/* Logo image */
+/* FIXED logo image */
 .logo-img {
-  height: 50px;
+  height: 58px;
   width: auto;
-  transform: scale(1.6); /* makes it visually bigger */
-  transform-origin: left center;
+  transform: none;   /* remove scale */
+  display: block;
 }
 
 /* Brand text */
 .site-name {
-  font-size: 20px;
-  font-weight: 700; /* bold */
-  color: #000000;   /* pure black */
-  letter-spacing: -0.3px;
+  font-size: 28px;
+  font-weight: 800;
+  color: #000;
+  line-height: 1;
+  white-space: nowrap;
 }

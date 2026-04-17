@@ -3670,6 +3670,8 @@ body {
 }
 
 .logo-img {
-  height: 45px; /* perfect balance */
+  height: 45px;
   width: auto;
+  transform: scale(2); /* increase until it looks right */
+  transform-origin: left center;
 }

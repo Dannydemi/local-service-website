@@ -3669,9 +3669,13 @@ body {
   color: #0a2540; /* match your theme */
 }
 
+.nav-container {
+  height: 70px;
+  display: flex;
+  align-items: center;
+}
+
 .logo-img {
-  height: 45px;
+  height: 55px;
   width: auto;
-  transform: scale(2); /* increase until it looks right */
-  transform-origin: left center;
 }
